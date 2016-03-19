@@ -29,4 +29,9 @@ class Cell < Struct.new(:x, :y, :value)
       x == other.x &&
       y == other.y
   end
+
+  def neighbor_coords
+    [x-1, x, x+1].product([y-1, y, y+1])
+      .reject { |element| element[0] == x && element[1] == y }
+  end
 end

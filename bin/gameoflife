@@ -1,0 +1,11 @@
+#! /usr/bin/env ruby
+
+require './lib/game'
+
+text = File.open(ARGV[0]).readlines
+
+puts Game::Reader.new(text).to_s
+
+
+puts text
+

@@ -23,7 +23,8 @@ describe Game do
 
   it 'calculates cell neighbor co-ordinates' do
     cell = Cell.new(2, 6, 0)
+    coords = [[1, 5], [1, 6], [1, 7], [2, 5], [2, 7], [3, 5], [3, 6], [3, 7]]
     cell.neighbor_coords.must_equal \
-      [[1, 5], [1, 6], [1, 7], [2, 5], [2, 7], [3, 5], [3, 6], [3, 7]]
+      coords.map { |c| Cell.new(c[0], c[1]) }
   end
 end

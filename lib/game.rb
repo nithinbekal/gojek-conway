@@ -21,6 +21,12 @@ class Board
     }.flatten
   end
 
+  def next
+  end
+
+  def neighbors_of_all_live_cells
+    @cells.map(&:alive?)
+  end
 end
 
 class Cell < Struct.new(:x, :y, :value)
@@ -30,8 +36,13 @@ class Cell < Struct.new(:x, :y, :value)
       y == other.y
   end
 
+  def alive?
+    value == '1'
+  end
+
   def neighbor_coords
     [x-1, x, x+1].product([y-1, y, y+1])
       .reject { |element| element[0] == x && element[1] == y }
+      .map { |element| Cell.new(element[0], element[1]) }
   end
 end

@@ -28,9 +28,11 @@ class Board
   end
 
   def next
-    # Board.new(surviving_cells + resurrecting_cells)
-    resurrecting_cells
-    Board.new([])
+    Board.new(surviving_cells + resurrecting_cells)
+  end
+
+  def contains_cell?(cell)
+    cells.include?(cell)
   end
 
   private
@@ -46,7 +48,7 @@ class Board
   end
 
   def candidates_for_next_turn
-    @cells.map(&:neighborhood).uniq
+    @cells.map(&:neighborhood).flatten.uniq
   end
 
   def dead?(cell)
@@ -55,6 +57,10 @@ class Board
 
   def alive?(cell)
     @cells.any? { |c| c == cell }
+  end
+
+  def has_neighbor_count?(cell, range)
+    range.include?(cell.neighbors_in_board(self).size)
   end
 end
 
@@ -66,11 +72,11 @@ class Cell < Struct.new(:x, :y)
   def neighborhood
     [x-1, x, x+1].product([y-1, y, y+1])
       .map { |element| Cell.new(element[0], element[1]) }
+      .reject { |cell| cell == self }
   end
 
   def neighbors_in_board(board)
-    surrounding_cells = neighbors - self
-    []
+    (neighborhood - [self]).select { |cell| board.contains_cell?(cell) }
   end
 end
 

@@ -6,11 +6,15 @@ class Game
     @cells = text.split("\n")
       .map.with_index { |row, x| cell_tuple(row, x)}
       .flatten
+    @board = Board.new(cells)
   end
 
-  def next
-    Board.new(@cells).next
+  def evolve(generations)
+    generations.times { @board = @board.next }
+    @board
   end
+
+  private
 
   def cell_tuple(line_text, x_index)
     line_text.split(//)

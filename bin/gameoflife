@@ -2,10 +2,7 @@
 
 require './lib/game'
 
-text = File.open(ARGV[0]).readlines
-
-puts Game::Reader.new(text).to_s
-
-
+text = File.open(ARGV[0]).read
+Game.new(text)
 puts text
 

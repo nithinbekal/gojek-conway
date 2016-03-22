@@ -10,23 +10,41 @@ describe Game do
 end
 
 describe Board do
-  it 'generates the next state' do
-    c11 = Cell.new(1, 1)
-    c12 = Cell.new(1, 2)
-    c21 = Cell.new(2, 1)
-    c22 = Cell.new(2, 2)
-    result = Board.new([c11, c21, c22]).next.cells
+  def c(x, y)
+    Cell.new(x, y)
+  end
 
-    [c11, c12, c21, c22].each { |cell| result.must_include cell }
+  it 'generates the next state' do
+    board = Board.new([c(1, 1), c(2,1), c(2,2)])
+    result = board.next.cells
+    cells = [c(1, 1), c(1,2), c(2,1), c(2,2)]
+    cells.each { |cell| result.must_include cell }
+  end
+
+  it 'retains state for block' do
+    board = Board.new([c(1, 1), c(1,2), c(2,1), c(2,2)])
+    result = board.next.cells
+    cells = [c(1, 1), c(1,2), c(2,1), c(2,2)]
+    cells.each { |cell| result.must_include cell }
+  end
+
+  it 'evolves into a blinker' do
+    board = Board.new([ c(1,0), c(1,1), c(1,2) ])
+    result = board.next.cells
+    cells = [ c(0,1), c(1,1), c(2,1) ]
+    cells.each { |cell| result.must_include cell }
   end
 end
 
 describe Cell do
   it 'calculates cell neighbor co-ordinates' do
     cell = Cell.new(2, 6)
+    neighbors = cell.neighborhood
     coords = [[1, 5], [1, 6], [1, 7], [2, 5],
               [2, 7], [3, 5], [3, 6], [3, 7]]
-    cell.neighborhood.must_equal \
-      coords.map { |c| Cell.new(c[0], c[1]) }
+
+    coords.each do |c|
+      neighbors.must_include Cell.new(c[0], c[1])
+    end
   end
 end

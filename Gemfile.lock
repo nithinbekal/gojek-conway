@@ -1,0 +1,19 @@
+PATH
+  remote: .
+  specs:
+    game (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    minitest (5.8.4)
+    rake (10.5.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.9)
+  game!
+  minitest
+  rake (~> 10.0)

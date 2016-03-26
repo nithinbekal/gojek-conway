@@ -1,8 +1,9 @@
 #! /usr/bin/env ruby
 
-require './lib/game'
+require 'bundler/setup'
+require 'game'
 
 text = File.open(ARGV[0]).read
-Game.new(text)
+game = Game.new(text)
 puts text
 

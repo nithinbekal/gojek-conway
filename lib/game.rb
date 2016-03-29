@@ -1,12 +1,15 @@
 require 'game/cell'
 require 'game/board'
+require 'game/presenter'
 
 class Game
-  attr_reader :cells
+  attr_reader :board
 
   def initialize(text)
-    @cells = fetch_live_cells(text)
-    @board = Board.new(cells)
+    cells = fetch_live_cells(text)
+    x = text.split("\n").size
+    y = text.split("\n").map(&:length).max
+    @board = Board.new(cells, x, y)
   end
 
   def evolve(generations)

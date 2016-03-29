@@ -1,8 +1,9 @@
 class Board
-  attr_reader :cells
+  attr_reader :cells, :x, :y
 
-  def initialize(cells)
+  def initialize(cells, x=1, y=1)
     @cells = cells
+    @x, @y = x, y
   end
 
   def next

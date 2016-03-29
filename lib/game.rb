@@ -12,7 +12,7 @@ class Game
     @board = Board.new(cells, x, y)
   end
 
-  def evolve(generations)
+  def evolve(generations=1)
     generations.times { @board = @board.next }
     @board
   end

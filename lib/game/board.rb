@@ -7,7 +7,7 @@ class Board
   end
 
   def next
-    Board.new(surviving_cells + resurrecting_cells)
+    Board.new(surviving_cells + resurrecting_cells, x, y)
   end
 
   def contains_cell?(cell)

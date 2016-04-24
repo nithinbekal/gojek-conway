@@ -4,7 +4,12 @@ require 'bundler/setup'
 require 'game'
 
 text = File.open(ARGV[0]).read
+iterations = ARGV.fetch(1, 50).to_i
+
 game = Game.new(text)
-board = game.evolve
+board = nil
+
+iterations.times { board = game.evolve }
+
 puts Presenter.new(board)
 
